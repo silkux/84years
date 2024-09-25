@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animación de carga de reacción en cadena realista (versión reducida)</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .loading-container {
+            width: 160px; /* Reducido de 200px */
+            height: 32px; /* Reducido de 40px */
+            position: relative;
+        }
+        .dots-container {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+        }
+        .dot {
+            width: 24px; /* Reducido de 30px */
+            height: 24px; /* Reducido de 30px */
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1); /* Sombra ligeramente reducida */
+        }
+        .dot::before {
+            content: '';
+            position: absolute;
+            width: 500%;
+            height: 100%;
+            background: linear-gradient(to right, #ffa555, #dd2a00, #d61e00, #dd2a00, #ffa555);
+            background-size: 40% 100%;
+            animation: moveGradient 10s linear infinite;
+            filter: blur(3px); /* Reducido de 4px */
+        }
+        .dot::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            border-radius: 50%;
+            filter: blur(0);
+        }
+        .dot { animation: chainReaction 1.5s ease-in-out infinite; }
+        .dot:nth-child(1) { animation-delay: 0s; }
+        .dot:nth-child(2) { animation-delay: 0.1s; }
+        .dot:nth-child(3) { animation-delay: 0.2s; }
+        .dot:nth-child(4) { animation-delay: 0.3s; }
+        .dot:nth-child(5) { animation-delay: 0.4s; }
+        .dot:nth-child(1)::before { animation-delay: 0s; }
+        .dot:nth-child(2)::before { animation-delay: -0.4s; }
+        .dot:nth-child(3)::before { animation-delay: -0.8s; }
+        .dot:nth-child(4)::before { animation-delay: -1.2s; }
+        .dot:nth-child(5)::before { animation-delay: -1.6s; }
+        @keyframes moveGradient {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-20%); }
+        }
+        @keyframes chainReaction {
+            0%, 100% { transform: translateY(0) scale(1); }
+            20% { transform: translateY(-12px) scale(1.1); } /* Reducido de -15px */
+            40% { transform: translateY(0) scale(1); }
+            60% { transform: translateY(-6px) scale(1.05); } /* Reducido de -7px */
+            80% { transform: translateY(0) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="dots-container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+</body>
+</html>
